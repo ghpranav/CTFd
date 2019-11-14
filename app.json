@@ -8,6 +8,11 @@
       "description": "MUST BE EMPTY ON HEROKU;URL for database",
       "required": false,
       "value": ""
+    },
+    "HEROKU_POSTGRESQL_CRIMSON_URL": {
+      "description": "MUST BE EMPTY ON HEROKU;URL for database",
+      "required": false,
+      "value": ""
     }
   },
   "environments": {
