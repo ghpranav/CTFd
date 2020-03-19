@@ -14,7 +14,8 @@ RUN apk update && \
         py-pip \
         mysql-client \
         git \
-        openssl-dev
+        openssl-dev \
+        postgresql-dev
 
 COPY . /opt/CTFd
 
