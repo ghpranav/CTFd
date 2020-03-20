@@ -15,6 +15,7 @@ RUN apk update && \
         mysql-client \
         git \
         openssl-dev \
+        postgresql-client \
         postgresql-dev
 
 COPY . /opt/CTFd

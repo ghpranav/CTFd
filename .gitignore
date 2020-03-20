@@ -62,7 +62,7 @@ target/
 CTFd/static/uploads
 CTFd/uploads
 .data/
-.ctfd_secret_key
+# .ctfd_secret_key
 .*.swp
 
 # Vagrant
