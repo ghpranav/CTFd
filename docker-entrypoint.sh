@@ -18,29 +18,24 @@ if [ ! -f .ctfd_secret_key ] && [ -z "$SECRET_KEY" ]; then
 fi
 
 # Check that the database is available
-# if [ -n "$DATABASE_URL" ]
-#     then
-#     url=`echo $DATABASE_URL | awk -F[@//] '{print $4}'`
-#     database=`echo $url | awk -F[:] '{print $1}'`
-#     port=`echo $url | awk -F[:] '{print $2}'`
-#     echo "Waiting for $database:$port to be ready"
-#     while ! pg_isready -h "$database" -p "$port"; do
-#         # Show some progress
-#         echo -n '.';
-#         sleep 1;
-#     done
-#     echo "$database is ready"
-#     # Give it another second.
-#     sleep 1;
-# fi
+if [ -n "$DATABASE_URL" ]
+    then
+    url=`echo $DATABASE_URL | awk -F[@//] '{print $4}'`
+    database=`echo $url | awk -F[:] '{print $1}'`
+    port=`echo $url | awk -F[:] '{print $2}'`
+    echo "Waiting for $database:$port to be ready"
+    while ! mysqladmin ping -h "$database" -P "$port" --silent; do
+        # Show some progress
+        echo -n '.';
+        sleep 1;
+    done
+    echo "$database is ready"
+    # Give it another second.
+    sleep 1;
+fi
 
 # Initialize database
 python manage.py db upgrade
-# psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
-# 	CREATE USER docker;
-# 	CREATE DATABASE docker;
-# 	GRANT ALL PRIVILEGES ON DATABASE docker TO docker;
-# EOSQL
 
 # Start CTFd
 echo "Starting CTFd"
